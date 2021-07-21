@@ -33,5 +33,10 @@ class AuthenticationPresenter : Contract.AuthPresenter{
         // Update UI
     }
 
+    override fun onUserSignOut() {
+        // Update UI
+
+    }
+
 
 }

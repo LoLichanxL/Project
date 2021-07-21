@@ -13,5 +13,6 @@ interface Contract {
         fun onRegistrationIsFailed()
         fun onSignInIsFailed()
         fun onUserIsExist()
+        fun onUserSignOut()
     }
 }

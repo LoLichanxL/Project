@@ -10,8 +10,7 @@ import com.google.firebase.ktx.Firebase
 class Authentication {
     private val presenter: AuthenticationPresenter = AuthenticationPresenter()
     private var authentication: FirebaseAuth = Firebase.auth
-
-    fun createUserAccount(email:String, password:String){
+    fun createUserAccountWithEmail(email:String, password:String){
         if (validateData(email, password)){
             authentication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(
                 OnSuccessListener {
@@ -21,7 +20,10 @@ class Authentication {
             })
         }
     }
-
+    fun signOut(){
+        authentication.signOut()
+        presenter.onUserSignOut()
+    }
     fun signInWithEmail(email: String, password: String){
         authentication.signInWithEmailAndPassword(email, password).addOnSuccessListener(
             OnSuccessListener {
@@ -40,7 +42,7 @@ class Authentication {
             presenter.onEmailIsEmpty()
             return false
         }
-        if(password.length < 6) {
+        else if(password.length < 6) {
             presenter.onPasswordIsShort()
             return false
         }
