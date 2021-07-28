@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Project</string>
+
+    <!-- Кнопки -->
+    <string name="button_publish">Опубликовать</string>
+    <string name="button_enter">Войти</string>
+    <string name="button_register">Регистрация</string>
+    <string name="button_registration">Зарегистрироваться</string>
+    <string name="button_add">Написать</string>
+    <string name="button_change">Изменить</string>
+
+    <!-- Подсказки -->
+    <string name="hint_email">Введите e-mail</string>
+    <string name="hint_password">Введите пароль</string>
+    <string name="hint_register_username">Имя пользователя</string>
+    <string name="hint_register_email">E-mail</string>
+    <string name="hint_register_password">Пароль</string>
+    <string name="hint_register_password2">Повторите пароль</string>
+
 </resources>
