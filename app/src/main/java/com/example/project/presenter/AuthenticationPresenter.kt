@@ -1,41 +1,27 @@
 package com.example.project.presenter
 
 import com.example.project.Contract
+import com.example.project.LoginActivity
+import com.example.project.model.Authentication
 
-class AuthenticationPresenter : Contract.AuthPresenter{
-    override fun onEmailIsEmpty() {
-        // Throw email exception
+class AuthenticationPresenter(val loginActivity: LoginActivity) : Contract.LoginPresenter{
+    private val authentication: Authentication = Authentication()
+
+    override fun onLoginButtonIsPressed(userEmail: String, userPassword: String) {
+        authentication.signInWithEmail(userEmail, userPassword, this)
+    }
+    override fun onLoginActivityIsStarted() {
+        if (authentication.checkUserAuth()){
+            loginActivity.openMainActivity()
+        }
     }
 
-    override fun onPasswordIsShort() {
-        // Throw password exception
+    override fun onLoginIsSuccessful() {
+        loginActivity.openMainActivity()
     }
 
-    override fun onRegistrationIsSuccess() {
-        // Update our UI
-
-    }
-
-    override fun onSignInIsSuccess() {
-        // Update our UI
-    }
-
-    override fun onRegistrationIsFailed() {
-        // Throw registration failed exception
-    }
-
-    override fun onSignInIsFailed() {
-        // Throw sign in failed exception
-
-    }
-
-    override fun onUserIsExist() {
-        // Update UI
-    }
-
-    override fun onUserSignOut() {
-        // Update UI
-
+    override fun onLoginIsFailed() {
+        loginActivity.showSignInIsFailedSnackbar()
     }
 
 

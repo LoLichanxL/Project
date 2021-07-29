@@ -1,18 +1,30 @@
 package com.example.project
 
 interface Contract {
-    interface Authentication{
-        fun createAccount(email:String, password:String)
-        fun signIn(email: String, password: String)
+
+    interface LoginView{
+        fun openSignUpFragment()
+        fun openMainActivity()
+        fun catchInvalidDataException()
+        fun showSignInIsFailedSnackbar()
     }
-    interface AuthPresenter{
-        fun onEmailIsEmpty()
-        fun onPasswordIsShort()
-        fun onRegistrationIsSuccess()
-        fun onSignInIsSuccess()
+    interface LoginPresenter{
+        fun onLoginButtonIsPressed(userEmail:String, userPassword: String)
+        fun onLoginActivityIsStarted()
+        fun onLoginIsSuccessful()
+        fun onLoginIsFailed()
+    }
+    interface RegistrationView{
+        fun showEmailIsInvalidSnackBar()
+        fun showPasswordIsInvalidSnackBar()
+        fun showPasswordSnackBar()
+        fun showRegistrationIsFailedSnackBar()
+        fun closeFragment()
+        fun openMainActivity()
+    }
+    interface RegistrationPresenter{
+        fun onRegistrationButtonIsPressed(name:String, email:String, firstPassword:String, secondPassword:String)
+        fun onRegistrationIsSuccessful()
         fun onRegistrationIsFailed()
-        fun onSignInIsFailed()
-        fun onUserIsExist()
-        fun onUserSignOut()
     }
 }

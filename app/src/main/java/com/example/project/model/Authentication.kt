@@ -1,53 +1,48 @@
 package com.example.project.model
 
+import android.util.Log
 import com.example.project.presenter.AuthenticationPresenter
+import com.example.project.presenter.RegistrationPresenter
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class Authentication {
-    private val presenter: AuthenticationPresenter = AuthenticationPresenter()
+class Authentication(){
     private var authentication: FirebaseAuth = Firebase.auth
-    fun createUserAccountWithEmail(email:String, password:String){
+    fun createUserAccountWithEmail(email:String, password:String, presenter: RegistrationPresenter){
         if (validateData(email, password)){
             authentication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(
                 OnSuccessListener {
-                    presenter.onRegistrationIsSuccess()
+                    presenter.onRegistrationIsSuccessful()
+                    Log.d("Auth is successful", "true")
                 }).addOnFailureListener(OnFailureListener {
+                    Log.d("Auth is successful", "false")
                     presenter.onRegistrationIsFailed()
             })
         }
     }
     fun signOut(){
         authentication.signOut()
-        presenter.onUserSignOut()
     }
-    fun signInWithEmail(email: String, password: String){
+    fun signInWithEmail(email: String, password: String, presenter: AuthenticationPresenter){
         authentication.signInWithEmailAndPassword(email, password).addOnSuccessListener(
             OnSuccessListener {
-                presenter.onSignInIsSuccess()
+                presenter.onLoginIsSuccessful()
             }).addOnFailureListener(OnFailureListener {
-                presenter.onSignInIsFailed()
+                presenter.onLoginIsFailed()
         })
     }
 
-    fun checkUserAuth(){
-        if (authentication.currentUser != null)
-            presenter.onUserIsExist()
+    fun checkUserAuth() : Boolean{
+        return authentication.currentUser != null
     }
-    private fun validateData(email: String, password: String):Boolean{
+    fun validateData(email: String, password: String):Boolean{
         if (email.length == 0) {
-            presenter.onEmailIsEmpty()
             return false
         }
-        else if(password.length < 6) {
-            presenter.onPasswordIsShort()
-            return false
-        }
-        else
-            return true
+        else return password.length >= 6
     }
 }
 
