@@ -36,7 +36,14 @@ class LoginActivity : AppCompatActivity(), Contract.LoginView{
         fragmentContainer = findViewById(R.id.registration_fragment_container)
         mainScreen = findViewById(R.id.login_main_screen)
         loginButton.setOnClickListener(View.OnClickListener {
-            presenter.onLoginButtonIsPressed(userEmailEditText.text.toString(), userPasswordEditText.text.toString())
+            if(userEmailEditText.text != null && userPasswordEditText.text != null) {
+                presenter.onLoginButtonIsPressed(
+                    userEmailEditText.text.toString(),
+                    userPasswordEditText.text.toString()
+                )
+            }else{
+                catchInvalidDataException()
+            }
         })
 
         registerButton.setOnClickListener(View.OnClickListener {
@@ -46,6 +53,9 @@ class LoginActivity : AppCompatActivity(), Contract.LoginView{
 
     override fun openMainActivity(){
         // Update user UI
+        var intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun catchInvalidDataException() {

@@ -12,16 +12,15 @@ import com.google.firebase.ktx.Firebase
 class Authentication(){
     private var authentication: FirebaseAuth = Firebase.auth
     fun createUserAccountWithEmail(email:String, password:String, presenter: RegistrationPresenter){
-        if (validateData(email, password)){
-            authentication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(
-                OnSuccessListener {
-                    presenter.onRegistrationIsSuccessful()
-                    Log.d("Auth is successful", "true")
-                }).addOnFailureListener(OnFailureListener {
-                    Log.d("Auth is successful", "false")
-                    presenter.onRegistrationIsFailed()
+        authentication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(
+            OnSuccessListener {
+                presenter.onRegistrationIsSuccessful()
+                Log.d("Auth is successful", "true")
+            }).addOnFailureListener(OnFailureListener {
+            Log.d("Auth is successful", "false")
+            presenter.onRegistrationIsFailed()
             })
-        }
+
     }
     fun signOut(){
         authentication.signOut()
@@ -38,12 +37,7 @@ class Authentication(){
     fun checkUserAuth() : Boolean{
         return authentication.currentUser != null
     }
-    fun validateData(email: String, password: String):Boolean{
-        if (email.length == 0) {
-            return false
-        }
-        else return password.length >= 6
-    }
+
 }
 
 
