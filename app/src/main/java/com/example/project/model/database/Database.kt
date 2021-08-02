@@ -1,0 +1,95 @@
+package com.example.project.model.database
+
+import android.util.Log
+import com.example.project.model.Advert
+import com.example.project.model.Chat
+import com.example.project.model.Message
+import com.example.project.model.User
+import com.example.project.model.animals.Animal
+import com.example.project.model.animals.Dog
+import com.example.project.presenter.HomePresenter
+import com.google.android.gms.common.util.CollectionUtils.listOf
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.util.*
+import java.util.Collections.emptyList
+
+class Database {
+    companion object{
+        private val database = Firebase.database("https://project-24d51-default-rtdb.europe-west1.firebasedatabase.app/")
+        private val storage = Firebase.storage
+        fun addUser(user: User){
+            database.reference.child("Users").child(user.uid).setValue(user).addOnSuccessListener {
+            }.addOnFailureListener {  }
+        }
+
+        fun addChat(chat: Chat, firstUID:String, secondUID:String){
+            database.reference.child("Chats").child(chat.chatID).child("members").setValue(listOf(firstUID, secondUID))
+        }
+        fun addUserChat(UID:String, chatID:String){
+            database.reference.child("UserChats").child(UID).get().addOnSuccessListener {
+                if (it.getValue() == null){
+                    database.reference.child("UserChats").child(UID).setValue(listOf(chatID))
+                }
+                else {
+                    val list: ArrayList<String> = it.getValue() as ArrayList<String>
+                    list.add(chatID)
+                    database.reference.child("UserChats").child(UID).setValue(list)
+                }
+            }.addOnFailureListener {
+            }
+        }
+        fun addChatMessage(chatID: String, message: Message){
+            database.reference.child("ChatMessages").child(chatID).child("messages").get().addOnSuccessListener {
+                if (it.getValue() == null){
+                    database.reference.child("ChatMessages").child(chatID).child("messages").setValue(
+                        listOf(message))
+                    database.reference.child("Chats").child(chatID).child("lastMessage").setValue(message)
+                }else{
+                    var list:ArrayList<Message> = it.getValue() as ArrayList<Message>
+                    list.add(message)
+                    database.reference.child("ChatMessages").child(chatID).child("messages").setValue(list)
+                    database.reference.child("Chats").child(chatID).child("lastMessage").setValue(message)
+                }
+            }
+
+        }
+
+        fun getUserChats(UID:String){
+            var list:List<Chat> = emptyList()
+            database.reference.child("UserChats").child(UID).get().addOnSuccessListener {
+                list = it.getValue() as List<Chat>
+            }
+        }
+        fun getChatMessages(chatID: String){
+            var list:List<Message> = emptyList()
+            database.reference.child("ChatMessages").child(chatID).child("messages").get().addOnSuccessListener {
+                list = it.getValue() as List<Message>
+            }
+        }
+        fun addAdvert(advert: Advert){
+            database.reference.child("Adverts").get().addOnSuccessListener {
+                if (it.getValue() == null){
+                    database.reference.child("Adverts").setValue(listOf(advert))
+                }
+                else{
+                    var list:ArrayList<Advert> = it.getValue() as ArrayList<Advert>
+                    list.add(advert)
+                    database.reference.child("Adverts").setValue(list)
+                }
+            }
+        }
+        fun getAdverts(presenter: HomePresenter){
+            database.reference.child("Adverts").get().addOnSuccessListener {
+                var list = it.getValue() as List<HashMap<String, Object>>
+                presenter.onDatabaseIsUploadAdverts(list)
+            }
+        }
+        fun getAdverts(){
+            database.reference.child("Adverts").get().addOnSuccessListener {
+                var list = it.getValue() as ArrayList<Advert>
+            }
+        }
+    }
+}
