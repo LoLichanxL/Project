@@ -15,8 +15,7 @@
         android:src="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        >
+        android:clickable="true">
 
     </ImageView>
 
@@ -33,7 +32,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
             app:shapeAppearance="@style/shapeableImageView"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/add_user_image" />
 
         <!-- app:srcCompat="@drawable/register_user_image" -->
 
@@ -55,10 +54,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:hint="@string/hint_register_username"
-            android:textColorHint="@color/mediumGrey"
-            app:boxBackgroundColor="@color/ultraLightGrey"
+            android:textColorHint="@color/darkBlue"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/lightGrey"
-            app:hintTextColor="@color/lightGrey">
+            app:hintTextColor="@color/darkBlue">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_username_edit"
@@ -76,10 +75,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="@string/hint_email"
-            android:textColorHint="@color/mediumGrey"
-            app:boxBackgroundColor="@color/ultraLightGrey"
+            android:textColorHint="@color/darkBlue"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/lightGrey"
-            app:hintTextColor="@color/lightGrey">
+            app:hintTextColor="@color/darkBlue">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_email_edit"
@@ -97,11 +96,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:hint="@string/hint_password"
-            android:textColorHint="@color/mediumGrey"
-            app:boxBackgroundColor="@color/ultraLightGrey"
+            android:textColorHint="@color/darkBlue"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/lightGrey"
             app:endIconMode="password_toggle"
-            app:hintTextColor="@color/lightGrey">
+            app:endIconTint="@color/darkBlue"
+            app:hintTextColor="@color/darkBlue">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_password_edit_first"
@@ -119,11 +119,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:hint="Повторите пароль"
-            android:textColorHint="@color/mediumGrey"
-            app:boxBackgroundColor="@color/ultraLightGrey"
+            android:textColorHint="@color/darkBlue"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/lightGrey"
+            app:endIconTint="@color/darkBlue"
             app:endIconMode="password_toggle"
-            app:hintTextColor="@color/lightGrey">
+            app:hintTextColor="@color/darkBlue">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_password_edit_second"
@@ -139,9 +140,8 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
             android:text="@string/button_register"
             android:textColor="@color/darkBlue"
-            app:strokeColor="@color/lightGrey" />
+            app:strokeColor="@color/yellow" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
