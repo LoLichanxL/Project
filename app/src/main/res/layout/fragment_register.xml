@@ -34,8 +34,6 @@
             app:shapeAppearance="@style/shapeableImageView"
             app:srcCompat="@drawable/add_user_image" />
 
-        <!-- app:srcCompat="@drawable/register_user_image" -->
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/register_text"
             android:layout_width="match_parent"
