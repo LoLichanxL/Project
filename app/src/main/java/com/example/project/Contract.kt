@@ -1,5 +1,8 @@
 package com.example.project
 
+import com.example.project.model.Advert
+import java.util.*
+
 interface Contract {
 
     interface LoginView{
@@ -26,5 +29,13 @@ interface Contract {
         fun onRegistrationButtonIsPressed(name:String, email:String, firstPassword:String, secondPassword:String)
         fun onRegistrationIsSuccessful()
         fun onRegistrationIsFailed()
+    }
+    interface HomeView{
+        fun createAdvertsRecyclerView(list: List<HashMap<String, Object>>)
+    }
+
+    interface HomePresenter{
+        fun onDatabaseIsUploadAdverts(list: List<HashMap<String, Object>>)
+        fun onFragmentIsStarted()
     }
 }
