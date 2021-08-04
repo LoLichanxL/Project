@@ -1,12 +1,10 @@
 package com.example.project.model.database
 
-import android.util.Log
+import android.net.Uri
 import com.example.project.model.Advert
 import com.example.project.model.Chat
 import com.example.project.model.Message
 import com.example.project.model.User
-import com.example.project.model.animals.Animal
-import com.example.project.model.animals.Dog
 import com.example.project.presenter.HomePresenter
 import com.google.android.gms.common.util.CollectionUtils.listOf
 import com.google.firebase.database.ktx.database
@@ -18,7 +16,7 @@ import java.util.Collections.emptyList
 class Database {
     companion object{
         private val database = Firebase.database("https://project-24d51-default-rtdb.europe-west1.firebasedatabase.app/")
-        private val storage = Firebase.storage
+        val storage = Firebase.storage
         fun addUser(user: User){
             database.reference.child("Users").child(user.uid).setValue(user).addOnSuccessListener {
             }.addOnFailureListener {  }
@@ -82,14 +80,37 @@ class Database {
         }
         fun getAdverts(presenter: HomePresenter){
             database.reference.child("Adverts").get().addOnSuccessListener {
-                var list = it.getValue() as List<HashMap<String, Object>>
-                presenter.onDatabaseIsUploadAdverts(list)
+                if (it.getValue() != null) {
+                    var list = it.getValue() as List<HashMap<String, Object>>
+                    presenter.onDatabaseIsUploadAdverts(list)
+                }
+                else{
+                    presenter.onDatabaseIsUploadAdverts(emptyList())
+                }
             }
         }
-        fun getAdverts(){
-            database.reference.child("Adverts").get().addOnSuccessListener {
-                var list = it.getValue() as ArrayList<Advert>
+        fun uploadAdvertImage(advertID: String, count:Int, uri: String){
+            if (count == 1) {
+                val uploadTask = storage.reference.child("adverts/" + advertID + "/firstImage.jpg").putFile(
+                    Uri.parse(uri))
             }
+            if (count == 2) {
+                val uploadTask = storage.reference.child("adverts/" + advertID + "/secondImage.jpg").putFile(
+                    Uri.parse(uri))            }
+            if (count == 3) {
+                val uploadTask = storage.reference.child("adverts/" + advertID + "/thirdImage.jpg").putFile(
+                    Uri.parse(uri))            }
         }
+        fun uploadImageAdvertImageFromImageView(advertID: String, count: Int, data:ByteArray){
+            if (count == 1) {
+                var uploadTask = storage.reference.child("adverts/" + advertID + "/firstImage.jpg").putBytes(data)
+            }
+            if (count == 2) {
+                var uploadTask = storage.reference.child("adverts/" + advertID + "/secondImage.jpg").putBytes(data) }
+            if (count == 3) {
+                var uploadTask = storage.reference.child("adverts/" + advertID + "/thirdImage.jpg").putBytes(data)
+            }
     }
+
+}
 }

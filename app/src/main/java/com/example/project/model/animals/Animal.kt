@@ -1,7 +1,8 @@
 package com.example.project.model.animals
 
-abstract class Animal (val gender:String,
-              val age:Int,
+class Animal (
+    val gender:String,
+              val age:String,
               val breed: String
               ) {
 }

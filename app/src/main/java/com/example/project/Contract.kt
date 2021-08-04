@@ -27,8 +27,15 @@ interface Contract {
     }
     interface RegistrationPresenter{
         fun onRegistrationButtonIsPressed(name:String, email:String, firstPassword:String, secondPassword:String)
-        fun onRegistrationIsSuccessful()
+        fun onRegistrationIsSuccessful(name: String)
         fun onRegistrationIsFailed()
+    }
+
+    interface MainView{
+        fun openCreateAdvertFragment()
+        fun closeCreateAdvertFragment()
+
+        fun uploadAdvertImage(code: Int)
     }
     interface HomeView{
         fun createAdvertsRecyclerView(list: List<HashMap<String, Object>>)
@@ -37,5 +44,15 @@ interface Contract {
     interface HomePresenter{
         fun onDatabaseIsUploadAdverts(list: List<HashMap<String, Object>>)
         fun onFragmentIsStarted()
+        fun onFloatingBarIsClicked()
+    }
+
+    interface AddAdvertView{
+        fun dataIsEmptySnackbar()
+    }
+    interface AddAdvertPresenter{
+        fun onArrowBackIsClicked()
+        fun onUploadImageButtonIsPressed(code:Int)
+        fun onAddAdvertButtonIsClicked(title:String, description:String, coast:String, category: String, breed:String, age:String, gender:String)
     }
 }

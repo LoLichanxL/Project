@@ -11,10 +11,10 @@ import com.google.firebase.ktx.Firebase
 
 class Authentication(){
     private var authentication: FirebaseAuth = Firebase.auth
-    fun createUserAccountWithEmail(email:String, password:String, presenter: RegistrationPresenter){
+    fun createUserAccountWithEmail(email:String, password:String, presenter: RegistrationPresenter, name:String){
         authentication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(
             OnSuccessListener {
-                presenter.onRegistrationIsSuccessful()
+                presenter.onRegistrationIsSuccessful(name)
                 Log.d("Auth is successful", "true")
             }).addOnFailureListener(OnFailureListener {
             Log.d("Auth is successful", "false")
@@ -37,7 +37,9 @@ class Authentication(){
     fun checkUserAuth() : Boolean{
         return authentication.currentUser != null
     }
-
+    fun getUserID(): String {
+        return authentication.uid.toString()
+    }
 }
 
 

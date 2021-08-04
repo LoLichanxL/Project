@@ -3,16 +3,19 @@ package com.example.project.presenter
 import android.provider.ContactsContract
 import com.example.project.Contract
 import com.example.project.model.Authentication
+import com.example.project.model.User
+import com.example.project.model.database.Database
 
 class RegistrationPresenter(val view:Contract.RegistrationView) : Contract.RegistrationPresenter {
     val authentication:Authentication = Authentication()
     override fun onRegistrationButtonIsPressed(name: String, email: String, firstPassword: String, secondPassword: String) {
         if (validateData(email, firstPassword, secondPassword))
-            authentication.createUserAccountWithEmail(email, firstPassword, this)
+            authentication.createUserAccountWithEmail(email, firstPassword, this, name)
 
     }
 
-    override fun onRegistrationIsSuccessful() {
+    override fun onRegistrationIsSuccessful(name: String) {
+        Database.addUser(User(authentication.getUserID(), name))
         view.openMainActivity()
     }
 

@@ -1,151 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
-
+    android:layout_height="match_parent">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="150dp" />
+        android:id="@+id/advert_arrow_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        >
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Шотландская кошка"
-        android:textColor="@color/darkBlue"
-        android:textSize="20sp" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="400 руб."
-        android:textColor="@color/darkBlue"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.button.MaterialButton
+    </ImageView>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text="Связаться" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Описание"
-        android:textColor="@color/darkBlue"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <androidx.core.widget.NestedScrollView
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/advert_arrow_back"
+        android:scrollbars="none"
+        android:layout_marginTop="16dp"
+        >
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        >
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/advert_fragment_first_image_view"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="5dp"
+                    >
+
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/advert_fragment_second_image_view"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="5dp"
+                    >
+
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/advert_fragment_third_image_view"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:visibility="gone">
+
+                </ImageView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/advert_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Шотландская кошка"
+            android:textColor="@color/darkBlue"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/advert_coast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="400 руб."
+            android:textColor="@color/darkBlue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/advert_chat_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textAllCaps="false"
+            android:text="Связаться" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="На фоне популяризации и поддержки Правительством Москвы волонтерских движений и, как следствие, увеличения числа людей, неравнодушных к судьбам бездомных котов, мною была выделена проблема, заключающаяся в отсутствии системного подхода к вопросу организации жизнеобеспечения животных."
+            android:text="Описание"
             android:textColor="@color/darkBlue"
-            android:textSize="16sp" />
-    </androidx.core.widget.NestedScrollView>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Характеристики"
-        android:textColor="@color/darkBlue"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"/>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView7"
+                android:id="@+id/advert_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Пол"
                 android:textColor="@color/darkBlue"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView5" />
+                tools:text="На фоне популяризации и поддержки Правительством Москвы волонтерских движений и, как следствие, увеличения числа людей, неравнодушных к судьбам бездомных котов, мною была выделена проблема, заключающаяся в отсутствии системного подхода к вопросу организации жизнеобеспечения животных." />
+        </androidx.core.widget.NestedScrollView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Порода"
-                android:textColor="@color/darkBlue"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Характеристики"
+            android:textColor="@color/darkBlue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Категория"
-                android:textColor="@color/darkBlue"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="143dp"
-                android:layout_marginTop="8dp"
-                android:text="Кошка"
-                android:textColor="@color/darkBlue"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/materialTextView8"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView4"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Шотландская"
-                android:textColor="@color/darkBlue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView6"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Пол"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView5" />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="left"
-                app:constraint_referenced_ids="materialTextView6" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Порода"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Девочка"
-                android:textColor="@color/darkBlue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView8"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView8" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Категория"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/advert_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="143dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Кошка"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/advert_breed"
+                    app:layout_constraintStart_toEndOf="@+id/materialTextView4"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.core.widget.NestedScrollView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/advert_breed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Шотландская"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/advert_category"
+                    app:layout_constraintTop_toBottomOf="@+id/advert_category" />
 
-</LinearLayout>
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="left"
+                    app:constraint_referenced_ids="advert_category" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/advert_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Девочка"
+                    android:textColor="@color/darkBlue"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/advert_breed"
+                    app:layout_constraintTop_toBottomOf="@+id/advert_breed" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
