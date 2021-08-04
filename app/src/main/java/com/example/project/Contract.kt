@@ -44,7 +44,7 @@ interface Contract {
     interface HomePresenter{
         fun onDatabaseIsUploadAdverts(list: List<HashMap<String, Object>>)
         fun onFragmentIsStarted()
-        fun onAddAdvertButtonIsClickedIsClicked()
+        fun onAddAdvertButtonIsClicked()
     }
 
     interface AddAdvertView{
