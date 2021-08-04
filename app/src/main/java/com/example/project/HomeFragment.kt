@@ -43,8 +43,7 @@ class HomeFragment : Fragment(), Contract.HomeView {
         recyclerView.adapter = AdvertsAdapter(list, activity as MainActivity)
     }
 
-
-    companion object {
-
+    fun updateAdapter(){
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }

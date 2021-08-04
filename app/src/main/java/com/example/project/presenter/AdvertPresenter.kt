@@ -42,6 +42,7 @@ class AdvertPresenter(val view: AddAdvertFragment, val mainView:Contract.MainVie
                 Database.addAdvert(Advert(id, "placeID", title, description, coast, breed, category, age, gender, listOf("adverts/" + id + "/firstImage.jpg", "adverts/" + id + "/secondImage.jpg", "adverts/" + id + "/thirdImage.jpg"),
                     date, Authentication().getUserID()))
                 mainView.closeCreateAdvertFragment()
+
             }
             if (view.binding.firstImageViewContainer.visibility == View.VISIBLE && view.binding.secondImageViewContainer.visibility == View.VISIBLE && view.binding.thirdImageViewContainer.visibility != View.VISIBLE) {
                 uploadImage(1, id)

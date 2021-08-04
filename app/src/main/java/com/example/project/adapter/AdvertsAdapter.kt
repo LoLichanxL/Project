@@ -51,7 +51,9 @@ class AdvertsAdapter(val list: List<HashMap<String, Object>>,val activity: MainA
     override fun getItemCount(): Int {
         return list.size
     }
-
+    fun updateData(){
+        notifyDataSetChanged()
+    }
     class AdvertsViewHolder(itemView: View, val activity: MainActivity, val list: List<HashMap<String, Object>>) : RecyclerView.ViewHolder(itemView){
         val item = itemView.findViewById<ConstraintLayout>(R.id.item_view)
         val advertImageView = itemView.findViewById<ImageView>(R.id.advert_image_view)

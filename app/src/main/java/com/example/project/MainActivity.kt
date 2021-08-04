@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), Contract.MainView {
     override fun closeCreateAdvertFragment() {
         supportFragmentManager.popBackStack()
         Log.d("BackStackSize", supportFragmentManager.backStackEntryCount.toString())
+
         mainScreen.visibility = View.VISIBLE
         fragmentContainer.visibility = View.GONE
     }

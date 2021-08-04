@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project</string>
+    <string name="app_name">My Dream Pet</string>
 
     <!-- Кнопки -->
     <string name="button_publish">Опубликовать</string>
