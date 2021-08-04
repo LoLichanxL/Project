@@ -12,6 +12,7 @@ import com.example.project.adapter.AdvertsAdapter
 import com.example.project.databinding.FragmentHomeBinding
 import com.example.project.model.Advert
 import com.example.project.presenter.HomePresenter
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
@@ -31,7 +32,7 @@ class HomeFragment : Fragment(), Contract.HomeView {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
         presenter = HomePresenter(this, activity as MainActivity)
         recyclerView = view.findViewById<RecyclerView>(R.id.adverts_recycler_view)
-        view.findViewById<FloatingActionButton>(R.id.create_advert_floating_action_button).setOnClickListener(View.OnClickListener {
+        view.findViewById<MaterialButton>(R.id.add_advert_button).setOnClickListener(View.OnClickListener {
             presenter.onFloatingBarIsClicked()
         })
         presenter.onFragmentIsStarted()
