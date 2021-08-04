@@ -11,16 +11,13 @@ import com.example.project.presenter.RegistrationPresenter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import android.content.Intent
+import com.example.project.databinding.FragmentRegisterBinding
+import com.google.android.material.imageview.ShapeableImageView
 
 
 class RegistrationFragment (val loginActivity: LoginActivity): Fragment(), Contract.RegistrationView {
-    private lateinit var arrowBack:ImageView
-    private lateinit var userNameEditText: TextInputEditText
-    private lateinit var userEmailEditText:TextInputEditText
-    private lateinit var firstUserPasswordEditText: TextInputEditText
-    private lateinit var secondUserPasswordEditText: TextInputEditText
-    private lateinit var registrationButton: Button
-    private lateinit var viewContainer: View
+
+    lateinit var binding: FragmentRegisterBinding
     private val presenter:Contract.RegistrationPresenter = RegistrationPresenter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,38 +28,34 @@ class RegistrationFragment (val loginActivity: LoginActivity): Fragment(), Contr
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
-        viewContainer = view
-        arrowBack = view.findViewById(R.id.registration_fragment_arrow_back)
-        userNameEditText = view.findViewById(R.id.register_username_edit)
-        userEmailEditText = view.findViewById(R.id.register_email_edit)
-        firstUserPasswordEditText = view.findViewById(R.id.register_password_edit_first)
-        secondUserPasswordEditText = view.findViewById(R.id.register_password_edit_second)
-        registrationButton = view.findViewById(R.id.register_button)
-        arrowBack.setOnClickListener(View.OnClickListener {
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+
+        binding.registrationFragmentArrowBack.setOnClickListener(View.OnClickListener {
             closeFragment()
         })
-        registrationButton.setOnClickListener(View.OnClickListener {
-            presenter.onRegistrationButtonIsPressed(userNameEditText.text.toString(), userEmailEditText.text.toString(),
-                firstUserPasswordEditText.text.toString(), secondUserPasswordEditText.text.toString())
+        binding.registerButton.setOnClickListener(View.OnClickListener {
+            presenter.onRegistrationButtonIsPressed(binding.registerUsernameEdit.text.toString(), binding.registerEmailEdit.text.toString(),
+                binding.registerPasswordEditFirst.text.toString(), binding.registerPasswordEditSecond.text.toString())
         })
-        return view
+        binding.registerUserImage.setOnClickListener(View.OnClickListener {
+            loginActivity.onChooseUserImageButtonIsClicked()
+        })
+        return binding.root
     }
-
     override fun showEmailIsInvalidSnackBar() {
-        Snackbar.make(viewContainer, "Email is invalid", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, "Email is invalid", Snackbar.LENGTH_LONG).show()
     }
 
     override fun showPasswordIsInvalidSnackBar() {
-        Snackbar.make(viewContainer, "Password is invalid", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, "Password is invalid", Snackbar.LENGTH_LONG).show()
     }
 
     override fun showPasswordSnackBar() {
-        Snackbar.make(viewContainer, "Passwords must be equals", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, "Passwords must be equals", Snackbar.LENGTH_LONG).show()
     }
 
     override fun showRegistrationIsFailedSnackBar() {
-        Snackbar.make(viewContainer, "Registration is failed", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, "Registration is failed", Snackbar.LENGTH_LONG).show()
     }
 
     override fun closeFragment() {

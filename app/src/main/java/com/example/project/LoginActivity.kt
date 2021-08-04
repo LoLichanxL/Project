@@ -13,6 +13,7 @@ import com.example.project.presenter.AuthenticationPresenter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import android.content.Intent
+import com.squareup.picasso.Picasso
 
 class LoginActivity : AppCompatActivity(), Contract.LoginView{
     private lateinit var userEmailEditText:TextInputEditText
@@ -24,6 +25,7 @@ class LoginActivity : AppCompatActivity(), Contract.LoginView{
     lateinit var mainScreen : LinearLayout
     private val fragmentRegistration = RegistrationFragment(this)
     private val presenter:AuthenticationPresenter = AuthenticationPresenter(this)
+    val GET_USER_IMAGE_REQUEST_CODE: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.onLoginActivityIsStarted()
@@ -70,7 +72,7 @@ class LoginActivity : AppCompatActivity(), Contract.LoginView{
         if (supportFragmentManager.fragments.size == 0)
             supportFragmentManager.beginTransaction().add(R.id.registration_fragment_container, fragmentRegistration).addToBackStack(null).commit()
         else
-            supportFragmentManager.beginTransaction().show(fragmentRegistration).addToBackStack(null).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.registration_fragment_container, fragmentRegistration).addToBackStack(null).commit()
         fragmentContainer.visibility = View.VISIBLE
         mainScreen.visibility = View.GONE
     }
@@ -81,7 +83,23 @@ class LoginActivity : AppCompatActivity(), Contract.LoginView{
         }else if (supportFragmentManager.fragments.get(0).isVisible){
             supportFragmentManager.popBackStack()
             mainScreen.visibility = View.VISIBLE
+            fragmentContainer.visibility = View.GONE
             Log.d("Fragment is destroyed", "true")
+        }
+    }
+    fun onChooseUserImageButtonIsClicked(){
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, GET_USER_IMAGE_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GET_USER_IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
+            val imageUrl = data?.data
+            Picasso.get().load(imageUrl).resize(fragmentRegistration.binding.registerUserImage.width, fragmentRegistration.binding.registerUserImage.height).centerCrop()
+                .into(fragmentRegistration.binding.registerUserImage)
         }
     }
 }

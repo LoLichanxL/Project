@@ -15,7 +15,7 @@ class HomePresenter(val view: Contract.HomeView, val mainActivity: Contract.Main
         Database.getAdverts(this)
     }
 
-    override fun onAddAdvertButtonIsClickedIsClicked() {
+    override fun onAddAdvertButtonIsClicked() {
         mainActivity.openCreateAdvertFragment()
     }
 }
