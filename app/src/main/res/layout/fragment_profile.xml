@@ -35,19 +35,22 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/user_photo_profile"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:src="@drawable/test_image"
             app:shapeAppearance="@style/shapeableImageView" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/choose_photo_button"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Выбрать фото"
+            android:textAllCaps="false"
             android:textColor="@color/darkBlue" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -60,10 +63,10 @@
             app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_name_profile_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="Виктория"
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,28 +81,10 @@
             app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_email_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="vic@mail.com"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Моб. телефон"
-            android:textColorHint="@color/darkBlue"
-            app:boxBackgroundColor="@color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="88888888888"
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -114,6 +99,7 @@
             app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_place_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
@@ -123,6 +109,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/sign_out_button"
+            android:textAllCaps="false"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"

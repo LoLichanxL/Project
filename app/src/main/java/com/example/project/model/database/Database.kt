@@ -1,11 +1,14 @@
 package com.example.project.model.database
 
 import android.net.Uri
+import android.util.Log
+import com.example.project.Contract
 import com.example.project.model.Advert
 import com.example.project.model.Chat
 import com.example.project.model.Message
 import com.example.project.model.User
 import com.example.project.presenter.HomePresenter
+import com.example.project.presenter.ProfilePresenter
 import com.google.android.gms.common.util.CollectionUtils.listOf
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -36,6 +39,13 @@ class Database {
                     database.reference.child("UserChats").child(UID).setValue(list)
                 }
             }.addOnFailureListener {
+            }
+        }
+        fun getUser(uid:String, presenter:Contract.ProfilePresenter){
+            database.reference.child("Users").child(uid).get().addOnSuccessListener {
+                val name = it.child("name").getValue().toString()
+                val photoUrl = it.child("photoUrl").getValue().toString()
+                presenter.onUserDataIsDownload(User(uid, name, photoUrl))
             }
         }
         fun addChatMessage(chatID: String, message: Message){
@@ -110,7 +120,11 @@ class Database {
             if (count == 3) {
                 var uploadTask = storage.reference.child("adverts/" + advertID + "/thirdImage.jpg").putBytes(data)
             }
-    }
+        }
+
+        fun uploadUserImageFromRegistration(userID:String,  data:ByteArray){
+            storage.reference.child("users/" + userID + "/userPhoto.jpg" ).putBytes(data)
+        }
 
 }
 }
