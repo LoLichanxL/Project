@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
+
 class ChatFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

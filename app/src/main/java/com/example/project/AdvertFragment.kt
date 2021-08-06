@@ -1,10 +1,13 @@
 package com.example.project
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.project.chat.SingleChatFragment
 import com.example.project.databinding.FragmentAdvertBinding
 import com.example.project.model.database.Database
 import com.squareup.picasso.Picasso
@@ -68,5 +71,11 @@ class AdvertFragment(val data:HashMap<String, Object>, val activity: MainActivit
         binding.advertBreed.setText(data.get("breed").toString())
         binding.advertCategory.setText(data.get("category").toString())
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        binding.advertChatButton.setOnClickListener {
+            activity.createSingleChatFragment(data.get("uid").toString())
+        }
     }
 }

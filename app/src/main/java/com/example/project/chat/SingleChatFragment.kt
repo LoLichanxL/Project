@@ -1,60 +1,99 @@
 package com.example.project.chat
 
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.project.AppValueEventListener
+
+import com.example.project.MainActivity
 import com.example.project.R
+import com.example.project.databinding.FragmentSingleChatBinding
+import com.example.project.model.Authentication
+import com.example.project.model.Chat
+import com.example.project.model.Message
+import com.example.project.model.database.Database
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SingleChatFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SingleChatFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+class SingleChatFragment() : Fragment(R.layout.fragment_single_chat) {
+    private lateinit var binding: FragmentSingleChatBinding
+    private lateinit var mRefMessages: DatabaseReference
+    private lateinit var mAdapter: SingleChatAdapter
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mMessagesListener: AppValueEventListener
+    private var mListMessages = emptyList<Message>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_single_chat, container, false)
+        binding = FragmentSingleChatBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SingleChatFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SingleChatFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onResume() {
+        super.onResume()
+        val uid = arguments?.getString("strArg").toString()
+        val chatid = uid.hashCode().toString()
+        binding.sendMessageButton.setOnClickListener {
+            var message = Message(
+                binding.chatInputMessage.text.toString(),
+                Authentication().getUserID(),
+                System.currentTimeMillis().toString()
+            )
+            if (message.text.isEmpty()) {
+                Toast.makeText(context, "Введите сообщение", Toast.LENGTH_LONG).show()
+                Log.d("a", "msg")
+            } else {
+//                fun chatNotExists(selfUID: String, chat: Chat) {
+//                    var list: List<Chat>
+//                    Database.database.reference.child("UserChats").child(selfUID).get()
+//                        .addOnSuccessListener {
+//                            list = it.getValue() as List<Chat>
+//                            if (!list.contains(chat)) {
+                                Database.addUserChat(Authentication().getUserID(), chatid)
+                                Database.addChat(
+                                    chat = Chat(chatid),
+                                    Authentication().getUserID(),
+                                    uid
+                                )
+                            //}
+                        //}
+                //}
+                Database.addChatMessage(chatid, message)
+                mRecyclerView = binding.chatRecyclerView
+                mRecyclerView.layoutManager=LinearLayoutManager(context)
+                mAdapter = SingleChatAdapter()
+                mRefMessages = FirebaseDatabase.getInstance().reference.child("ChatMessages")
+                mRecyclerView.adapter = mAdapter
+                mMessagesListener = AppValueEventListener { dataSnapshot ->
+                    Database.database.reference.child("ChatMessages").child(chatid).child("messages").get()
+                        .addOnSuccessListener {
+                            mListMessages = it.getValue() as List<Message>
+                            mAdapter.setList(mListMessages)
+                            mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+                        }.addOnFailureListener {println("FAILURE!!!")}
                 }
+                mRefMessages.addValueEventListener(mMessagesListener)
+                binding.chatInputMessage.text = Editable.Factory.getInstance().newEditable("")
+
             }
+        }
     }
 }
+
