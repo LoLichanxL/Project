@@ -8,14 +8,13 @@ import com.example.project.model.database.Database
 
 class RegistrationPresenter(val view:Contract.RegistrationView) : Contract.RegistrationPresenter {
     val authentication:Authentication = Authentication()
-    override fun onRegistrationButtonIsPressed(name: String, email: String, firstPassword: String, secondPassword: String) {
+    override fun onRegistrationButtonIsPressed(name: String, email: String, firstPassword: String, secondPassword: String, photo: ByteArray) {
         if (validateData(email, firstPassword, secondPassword))
-            authentication.createUserAccountWithEmail(email, firstPassword, this, name)
-
+            authentication.createUserAccountWithEmail(email, firstPassword, this, name, photo)
     }
 
     override fun onRegistrationIsSuccessful(name: String) {
-        Database.addUser(User(authentication.getUserID(), name))
+        Database.addUser(User(authentication.getUserID(), name, "users/" + authentication.getUserID() + "/userPhoto.jpg"))
         view.openMainActivity()
     }
 

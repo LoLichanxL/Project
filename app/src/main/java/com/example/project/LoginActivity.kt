@@ -100,6 +100,7 @@ class LoginActivity : AppCompatActivity(), Contract.LoginView{
             val imageUrl = data?.data
             Picasso.get().load(imageUrl).resize(fragmentRegistration.binding.registerUserImage.width, fragmentRegistration.binding.registerUserImage.height).centerCrop()
                 .into(fragmentRegistration.binding.registerUserImage)
+
         }
     }
 }
